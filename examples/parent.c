@@ -5,18 +5,27 @@
 #include <glad/gl.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-#define GLFW_EXPOSE_NATIVE_X11
+#if 0
+    #define GLFW_EXPOSE_NATIVE_X11
+#else
+    #define GLFW_EXPOSE_NATIVE_WIN32
+#endif
 #include <GLFW/glfw3native.h>
-#include <X11/Xlib.h>
+#if 0
+    #include <X11/Xlib.h>
+#else
+    #include <windows.h>
+#endif
 
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
 
 
+#if 0
 Display* display = NULL;
 
-Window createForeignWindow()
+void* createNativeWindow()
 {
     display = XOpenDisplay(NULL);
     if (!display)
@@ -37,14 +46,27 @@ Window createForeignWindow()
             break;
     }
 
-    return handle;
+    return (void*) handle;
 }
 
-void destroyForeignWindow(Window handle)
+void destroyNativeWindow(void* handle)
 {
-    XDestroyWindow(display, handle);
+    XDestroyWindow(display, (Window) handle);
     XCloseDisplay(display);
 }
+#else
+void* createNativeWindow()
+{
+    HWND handle = CreateWindowExW(0, L"PARENT", L"Parent window", WS_OVERLAPPEDWINDOW, 0, 0, 400, 600, NULL, NULL, GetModuleHandleW(NULL), NULL);
+    ShowWindow(handle, SW_SHOWNORMAL);
+    return (void*) handle;
+}
+
+void destroyNativeWindow(void* handle)
+{
+    DestroyWindow((HWND) handle);
+}
+#endif
 
 static void errorCallback(int error, const char* description)
 {
@@ -60,7 +82,7 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
 int main(void)
 {
     // In this scenario, create a foreign window before GLFW is even initialized.
-    Window handle = createForeignWindow();
+    void* handle = createNativeWindow();
 
     // Initialize GLFW
     glfwSetErrorCallback(errorCallback);
@@ -102,7 +124,7 @@ int main(void)
     glfwTerminate();
 
     // Destroy window after GLFW has terminated
-    destroyForeignWindow(handle);
+    destroyNativeWindow(handle);
     exit(EXIT_SUCCESS);
 }
 
