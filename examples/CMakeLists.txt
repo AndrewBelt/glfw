@@ -33,6 +33,7 @@ add_executable(sharing WIN32 MACOSX_BUNDLE sharing.c ${ICON} ${GLAD_GL})
 add_executable(splitview WIN32 MACOSX_BUNDLE splitview.c ${ICON} ${GLAD_GL})
 add_executable(triangle-opengl WIN32 MACOSX_BUNDLE triangle-opengl.c ${ICON} ${GLAD_GL})
 add_executable(wave WIN32 MACOSX_BUNDLE wave.c ${ICON} ${GLAD_GL})
+add_executable(parent WIN32 MACOSX_BUNDLE parent.c ${ICON} ${GLAD_GL})
 
 target_link_libraries(particles Threads::Threads)
 if (RT_LIBRARY)
@@ -40,7 +41,7 @@ if (RT_LIBRARY)
 endif()
 
 set(GUI_ONLY_BINARIES boing gears heightmap particles sharing splitview
-    triangle-opengl wave)
+    triangle-opengl wave parent)
 set(CONSOLE_BINARIES offscreen)
 
 set_target_properties(${GUI_ONLY_BINARIES} ${CONSOLE_BINARIES} PROPERTIES
@@ -66,6 +67,7 @@ if (APPLE)
     set_target_properties(triangle-opengl PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "OpenGL Triangle")
     set_target_properties(splitview PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "SplitView")
     set_target_properties(wave PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Wave")
+    set_target_properties(parent PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Parent")
 
     set_source_files_properties(glfw.icns PROPERTIES
                                 MACOSX_PACKAGE_LOCATION "Resources")
