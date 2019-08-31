@@ -630,9 +630,12 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
 
     _glfwGrabErrorHandlerX11();
 
-    window->x11.parent = _glfw.x11.root;
+    const Window parent = (wndconfig->nativeParent
+                           ? (Window) wndconfig->nativeParent
+                           : _glfw.x11.root);
+
     window->x11.handle = XCreateWindow(_glfw.x11.display,
-                                       _glfw.x11.root,
+                                       parent,
                                        0, 0,   // Position
                                        width, height,
                                        0,      // Border width
@@ -649,7 +652,6 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
         _glfwInputErrorX11(GLFW_PLATFORM_ERROR,
                            "X11: Failed to create window");
         return GLFW_FALSE;
-    }
 
     XSaveContext(_glfw.x11.display,
                  window->x11.handle,

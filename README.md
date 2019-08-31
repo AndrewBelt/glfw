@@ -345,6 +345,7 @@ skills.
  - Philip Rideout
  - Eddie Ringle
  - Max Risuhin
+ - David Robillard
  - Jorge Rodriguez
  - Ed Ropple
  - Aleksey Rybalkin

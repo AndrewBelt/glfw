@@ -842,6 +842,11 @@ extern "C" {
  *  [window attribute](@ref GLFW_FOCUS_ON_SHOW_attrib).
  */
 #define GLFW_FOCUS_ON_SHOW          0x0002000C
+/*! @brief Makes the window a child of the given window handle pointer
+ *
+ *  Parent window for embedding [window hint](@ref GLFW_NATIVE_PARENT_hint).
+ */
+#define GLFW_NATIVE_PARENT_HANDLE   0x0002000D
 
 /*! @brief Framebuffer bit depth hint.
  *
@@ -2590,6 +2595,29 @@ GLFWAPI void glfwWindowHint(int hint, int value);
  *  @ingroup window
  */
 GLFWAPI void glfwWindowHintString(int hint, const char* value);
+
+/*! @brief Sets the specified window hint to the desired pointer value.
+ *
+ *  This function works in the same way as @ref glfwWindowHint, but sets pointer
+ *  values rather than integers.  Calling this function for hints that do not
+ *  expect a pointer value is an error.
+ *
+ *  @param[in] hint The pointer [window hint](@ref window_hints) to set.
+ *  @param[in] value The pointer value of the window hint.
+ *
+ *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
+ *  GLFW_INVALID_ENUM.
+ *
+ *  @thread_safety This function must only be called from the main thread.
+ *
+ *  @sa @ref window_hints
+ *  @sa @ref glfwDefaultWindowHints
+ *
+ *  @since Added in version 3.4.
+ *
+ *  @ingroup window
+ */
+GLFWAPI void glfwWindowHintPointer(int hint, void* value);
 
 /*! @brief Creates a window and its associated context.
  *
