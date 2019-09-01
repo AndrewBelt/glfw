@@ -30,6 +30,8 @@ int main(void)
 {
     // In this scenario, create a foreign window before GLFW is even initialized.
     void* handle = createNativeWindow();
+    if (!handle)
+        exit(EXIT_FAILURE);
 
     // Initialize GLFW
     glfwSetErrorCallback(errorCallback);
@@ -55,6 +57,8 @@ int main(void)
 
     while (!glfwWindowShouldClose(window))
     {
+        glfwPollEvents();
+
         int width, height;
         glfwGetFramebufferSize(window, &width, &height);
         const float ratio = width / (float) height;
@@ -63,7 +67,6 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
 
     glfwDestroyWindow(window);

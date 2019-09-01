@@ -6,10 +6,10 @@ void* createNativeWindow()
 {
     display = XOpenDisplay(NULL);
     if (!display)
-        exit(EXIT_FAILURE);
+        return NULL;
 
     int screen = DefaultScreen(display);
-    Window handle = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0, 400, 600, 20, BlackPixel(display, screen), WhitePixel(display, screen));
+    Window handle = XCreateSimpleWindow(display, RootWindow(display, screen), 0, 0, 300, 200, 20, BlackPixel(display, screen), WhitePixel(display, screen));
 
     XSelectInput(display, handle, ExposureMask | KeyPressMask);
     XMapWindow(display, handle);
