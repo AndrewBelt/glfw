@@ -793,11 +793,17 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
     else
         contentRect = NSMakeRect(0, 0, wndconfig->width, wndconfig->height);
 
-    window->ns.object = [[GLFWWindow alloc]
-        initWithContentRect:contentRect
-                  styleMask:getStyleMask(window)
-                    backing:NSBackingStoreBuffered
-                      defer:NO];
+    if (wndconfig->nativeParent)
+    {
+        window->ns.object = (NSWindow*) wndconfig->nativeParent;
+    }
+    else {
+        window->ns.object = [[GLFWWindow alloc]
+            initWithContentRect:contentRect
+                      styleMask:getStyleMask(window)
+                        backing:NSBackingStoreBuffered
+                          defer:NO];
+    }
 
     if (window->ns.object == nil)
     {

@@ -1195,6 +1195,7 @@ static int createNativeWindow(_GLFWwindow* window,
 {
     int xpos, ypos, fullWidth, fullHeight;
     WCHAR* wideTitle;
+    HWND parentHandle;
     DWORD style = getWindowStyle(window);
     DWORD exStyle = getWindowExStyle(window);
 
@@ -1229,7 +1230,7 @@ static int createNativeWindow(_GLFWwindow* window,
     if (!wideTitle)
         return GLFW_FALSE;
 
-    HWND parent = (HWND) wndconfig->nativeParent;
+    parentHandle = (HWND) wndconfig->nativeParent;
 
     window->win32.handle = CreateWindowExW(exStyle,
                                            _GLFW_WNDCLASSNAME,
@@ -1237,7 +1238,7 @@ static int createNativeWindow(_GLFWwindow* window,
                                            style,
                                            xpos, ypos,
                                            fullWidth, fullHeight,
-                                           parent,
+                                           parentHandle,
                                            NULL, // No window menu
                                            GetModuleHandleW(NULL),
                                            NULL);
