@@ -40,7 +40,7 @@ if (RT_LIBRARY)
 endif()
 
 set(GUI_ONLY_BINARIES boing gears heightmap particles sharing splitview
-    triangle-opengl wave parent)
+    triangle-opengl wave)
 set(CONSOLE_BINARIES offscreen)
 
 set_target_properties(${GUI_ONLY_BINARIES} ${CONSOLE_BINARIES} PROPERTIES
