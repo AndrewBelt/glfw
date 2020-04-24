@@ -652,6 +652,7 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
         _glfwInputErrorX11(GLFW_PLATFORM_ERROR,
                            "X11: Failed to create window");
         return GLFW_FALSE;
+    }
 
     XSaveContext(_glfw.x11.display,
                  window->x11.handle,

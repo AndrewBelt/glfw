@@ -49,6 +49,7 @@ if (RT_LIBRARY)
     target_link_libraries(empty "${RT_LIBRARY}")
     target_link_libraries(threads "${RT_LIBRARY}")
 endif()
+target_link_libraries(nativeparent ${X11_LIBRARIES})
 
 set(GUI_ONLY_BINARIES empty gamma icon inputlag joysticks opacity tearing
     threads timeout title triangle-vulkan windows)
